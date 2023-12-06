@@ -1,0 +1,43 @@
+<form (ngSubmit)="submitForm()" #m="ngForm">
+ 
+  <label for="username">Username</label><br>
+  <input type="text" name="username" ngModel required #username="ngModel"><br>
+  <div *ngIf="m.submitted && username.errors?.['required']">Username is required.</div>
+ 
+  <label for="email">Email</label><br> 
+  <input type="email" name="email" ngModel required email #email="ngModel"><br> 
+  <div *ngIf="m.submitted && email.errors?.['required']">Email is required.</div> 
+  <div *ngIf="m.submitted && email.errors?.['email']">Enter a valid email.</div> 
+ 
+   
+  <p>Programming Languages:</p> 
+  <label *ngFor="let index of programmingLanguages"> 
+    <input type="checkbox" name="languages" ngModel [value]="index" required #languages="ngModel">
+    {{ index }} 
+  </label> 
+ 
+  
+  <p>Experience Level:</p> 
+  <label *ngFor="let plat of experienceLevels"> 
+    <input type="radio" name="experience" ngModel [value]="plat" required #experience="ngModel">
+    {{ plat }}
+  </label> 
+  
+  
+  <label for="description">Project Description:</label><br> 
+  <textarea name="description" ngModel minlength="10" required></textarea><br>
+  <div *ngIf="m.controls['description'].errors">
+    <div *ngIf="m.controls['description'].errors['required']">is required</div>
+    <div *ngIf="m.controls['description'].errors['minlength']">error is not 10 charectries.</div>
+  </div> 
+ 
+  <button [disabled]="m.invalid" type="submit">Submit</button> 
+</form> 
+ 
+ 
+<div *ngIf="conferm"> 
+  <h3>Congratulations {{ confermName }}!</h3> 
+  <p>Your programming skills are {{ confermExperience }}. Keep up the great work!</p> 
+</div>  
+ 
+ 
